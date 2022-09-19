@@ -44,6 +44,8 @@ namespace Generator.Equals
 
             if (property.HasAttribute(attributesMetadata.UnorderedEquality))
             {
+                
+                
                 var types = property.GetIDictionaryTypeArguments();
 
                 if (types != null)

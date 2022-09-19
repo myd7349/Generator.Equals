@@ -1,0 +1,53 @@
+﻿[
+  {
+    Id: CS0122,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (4,9)-(4,18),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is inaccessible due to its protection level,
+    Message: 'EquatableAttribute' is inaccessible due to its protection level,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  {
+    Id: CS0122,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (4,19)-(4,27),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is inaccessible due to its protection level,
+    Message: 'EquatableAttribute.Explicit' is inaccessible due to its protection level,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  {
+    Id: CS0122,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (15,13)-(15,28),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is inaccessible due to its protection level,
+    Message: 'DefaultEqualityAttribute' is inaccessible due to its protection level,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  }
+]

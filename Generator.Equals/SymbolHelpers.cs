@@ -30,14 +30,14 @@ namespace Generator.Equals
         public static string ToFQF(this ISymbol symbol) =>
             symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
 
-        public static AttributeData? GetAttribute(this ISymbol symbol, INamedTypeSymbol attribute)
+        public static AttributeData? GetAttribute(this ISymbol symbol, string attribute)
         {
             return symbol
                 .GetAttributes()
-                .FirstOrDefault(x => x.AttributeClass?.Equals(attribute, SymbolEqualityComparer.Default) == true);
+                .FirstOrDefault(x => x.AttributeClass?.ToFQF() == attribute);
         }
 
-        public static bool HasAttribute(this ISymbol symbol, INamedTypeSymbol attribute) =>
+        public static bool HasAttribute(this ISymbol symbol, string attribute) =>
             GetAttribute(symbol, attribute) != null;
 
         public static INamedTypeSymbol? GetInterface(this IPropertySymbol property, string interfaceFqn)

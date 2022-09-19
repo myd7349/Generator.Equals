@@ -4,24 +4,24 @@ namespace Generator.Equals
 {
     public class AttributesMetadata
     {
-        public INamedTypeSymbol Equatable { get; }
-        public INamedTypeSymbol DefaultEquality { get; }
-        public INamedTypeSymbol OrderedEquality { get; }
-        public INamedTypeSymbol IgnoreEquality { get; }
-        public INamedTypeSymbol UnorderedEquality { get; }
-        public INamedTypeSymbol ReferenceEquality { get; }
-        public INamedTypeSymbol SetEquality { get; }
-        public INamedTypeSymbol CustomEquality { get; }
+        public string Equatable { get; }
+        public string DefaultEquality { get; }
+        public string OrderedEquality { get; }
+        public string IgnoreEquality { get; }
+        public string UnorderedEquality { get; }
+        public string ReferenceEquality { get; }
+        public string SetEquality { get; }
+        public string CustomEquality { get; }
 
         public AttributesMetadata(
-            INamedTypeSymbol equatable,
-            INamedTypeSymbol defaultEquality,
-            INamedTypeSymbol orderedEquality,
-            INamedTypeSymbol ignoreEquality,
-            INamedTypeSymbol unorderedEquality, 
-            INamedTypeSymbol referenceEquality, 
-            INamedTypeSymbol setEquality,
-            INamedTypeSymbol customEquality)
+            string equatable,
+            string defaultEquality,
+            string orderedEquality,
+            string ignoreEquality,
+            string unorderedEquality, 
+            string referenceEquality, 
+            string setEquality,
+            string customEquality)
         {
             Equatable = equatable;
             DefaultEquality = defaultEquality;

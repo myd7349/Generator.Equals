@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -14,6 +16,8 @@ namespace Generator.Equals
     [Generator]
     class EqualsGenerator : ISourceGenerator
     {
+        bool _runtimeIncluded;
+
         public void Initialize(GeneratorInitializationContext context)
         {
 #if DEBUG
@@ -22,19 +26,44 @@ namespace Generator.Equals
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
 
+
+        void EnsureRuntimeIncluded(GeneratorExecutionContext context)
+        {
+            if (_runtimeIncluded) return;
+
+            var generatorAssembly = typeof(EqualsGenerator).Assembly;
+
+            foreach (var item in generatorAssembly.GetManifestResourceNames())
+            {
+                if (!item.StartsWith("Generator.Equals.Runtime"))
+                    continue;
+
+                using var stream = generatorAssembly.GetManifestResourceStream(item);
+                using var reader = new StreamReader(stream!);
+                var source = reader.ReadToEnd();
+
+                context.AddSource(item, source);
+            }
+
+            _runtimeIncluded = true;
+        }
+
         public void Execute(GeneratorExecutionContext context)
         {
             if (!(context.SyntaxReceiver is SyntaxReceiver s)) return;
 
+            EnsureRuntimeIncluded(context);
+
+
             var attributesMetadata = new AttributesMetadata(
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.EquatableAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.DefaultEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.OrderedEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.IgnoreEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.UnorderedEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.ReferenceEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.SetEqualityAttribute")!,
-                context.Compilation.GetTypeByMetadataName("Generator.Equals.CustomEqualityAttribute")!
+                "Equatable",
+                "DefaultEquality",
+                "OrderedEquality",
+                "IgnoreEquality",
+                "UnorderedEquality",
+                "ReferenceEquality",
+                "SetEquality",
+                "CustomEqualityB"
             );
 
             var handledSymbols = new HashSet<string>();
@@ -44,10 +73,8 @@ namespace Generator.Equals
                 var model = context.Compilation.GetSemanticModel(node.SyntaxTree);
                 var symbol = model.GetDeclaredSymbol(node, context.CancellationToken) as ITypeSymbol;
 
-                var equatableAttributeData = symbol?.GetAttributes().FirstOrDefault(x =>
-                    x.AttributeClass?.Equals(attributesMetadata.Equatable, SymbolEqualityComparer.Default) ==
-                    true);
-
+                var equatableAttributeData = symbol?.GetAttribute(attributesMetadata.Equatable);
+                
                 if (equatableAttributeData == null)
                     continue;
 
@@ -59,10 +86,10 @@ namespace Generator.Equals
                 handledSymbols.Add(symbolDisplayString);
 
                 var explicitMode = equatableAttributeData.NamedArguments
-                    .FirstOrDefault(pair => pair.Key == nameof(EquatableAttribute.Explicit))
+                    .FirstOrDefault(pair => pair.Key == "Explicit")
                     .Value.Value is true;
                 var ignoreInheritedMembers = equatableAttributeData.NamedArguments
-                    .FirstOrDefault(pair => pair.Key == nameof(EquatableAttribute.IgnoreInheritedMembers))
+                    .FirstOrDefault(pair => pair.Key == "IgnoreInheritedMembers")
                     .Value.Value is true;
                 var source = node switch
                 {
@@ -80,6 +107,7 @@ namespace Generator.Equals
             static string EscapeFileName(string fileName) => new[] { '<', '>', ',' }
                 .Aggregate(new StringBuilder(fileName), (s, c) => s.Replace(c, '_')).ToString();
         }
+
 
         class SyntaxReceiver : ISyntaxReceiver
         {

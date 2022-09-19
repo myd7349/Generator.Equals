@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Generator.Equals.Tests.Classes
 {
-    public partial class CustomEquality
+    public partial class CustomEqualityT
     {
         [Equatable]
         public partial class Sample

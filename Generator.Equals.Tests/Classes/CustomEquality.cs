@@ -1,6 +1,6 @@
 namespace Generator.Equals.Tests.Classes
 {
-    public partial class CustomEquality
+    public partial class CustomEqualityT
     {
         public class EqualsTest : EqualityTestCase
         {

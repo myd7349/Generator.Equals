@@ -1,0 +1,70 @@
+﻿[
+  {
+    Id: CS0122,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (6,9)-(6,18),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is inaccessible due to its protection level,
+    Message: 'EquatableAttribute' is inaccessible due to its protection level,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  {
+    Id: CS0616,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (16,13)-(16,27),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is not an attribute class,
+    Message: 'CustomEquality' is not an attribute class,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  {
+    Id: CS0616,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (17,13)-(17,27),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is not an attribute class,
+    Message: 'CustomEquality' is not an attribute class,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  },
+  {
+    Id: CS0616,
+    Title: ,
+    Severity: Error,
+    WarningLevel: 0,
+    Location: : (18,13)-(18,27),
+    Description: ,
+    HelpLink: ,
+    MessageFormat: '{0}' is not an attribute class,
+    Message: 'CustomEquality' is not an attribute class,
+    Category: Compiler,
+    CustomTags: [
+      Compiler,
+      Telemetry,
+      NotConfigurable
+    ]
+  }
+]
